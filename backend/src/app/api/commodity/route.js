@@ -1,7 +1,7 @@
 // backend/src/app/api/commodity/route.js
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
-  const symbol = searchParams.get("symbol") || "WHEAT";
+  const symbol = searchParams.get("symbol") || "MSFT";
   const key = process.env.ALPHA_VANTAGE_KEY;
   const url =
     `https://www.alphavantage.co/query` +

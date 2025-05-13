@@ -18,7 +18,7 @@ export default function App() {
 
   useEffect(() => {
     dispatch(fetchWeather({ lat: 44.5, lon: 11.3 }));
-    dispatch(fetchCommodity("WHEAT"));
+    dispatch(fetchCommodity("MSFT"));
     dispatch(fetchSimulation());
   }, [dispatch]);
 
