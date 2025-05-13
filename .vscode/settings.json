@@ -1,0 +1,60 @@
+{
+  // --- Formattazione & linting ---
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  // ESLint deve controllare anche TS e TSX
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  // --- Explorer & Git ---
+  "editor.minimap.enabled": false,
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "git.confirmSync": false,
+  "editor.accessibilitySupport": "off",
+  "git.enableSmartCommit": true,
+  "workbench.editor.enablePreview": false,
+  "gitlens.advanced.messages": {
+    "suppressCreatePullRequestPrompt": true
+  },
+  "git.autofetch": "all",
+  "git.fetchOnPull": true,
+  "git.autofetchPeriod": 30,
+  "workbench.colorTheme": "Kanagawa",
+
+  // --- Terminal ---
+  "terminal.integrated.env.windows": {
+    "NODE_OPTIONS": "--max-old-space-size=10240"
+  },
+
+  // --- Search & exclude ---
+  "search.useIgnoreFiles": false,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/target": true,
+    "**/.tmp": true
+  },
+
+  // --- Tailwind CSS IntelliSense ---
+  // 1) Associa .css a tailwindcss (per @tailwind …)
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  // 2) Ignora warning su at-rule sconosciute
+  "css.lint.unknownAtRules": "ignore",
+  // 3) Attiva IntelliSense Tailwind anche in TSX/JSX
+  "tailwindCSS.includeLanguages": {
+    "javascript": "javascript",
+    "javascriptreact": "html",
+    "typescript": "javascript",
+    "typescriptreact": "html"
+  }
+}

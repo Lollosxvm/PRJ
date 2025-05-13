@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Launch FE",
+      "type": "npm",
+      "script": "dev",
+      "path": "frontend",
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Launch BE",
+      "type": "npm",
+      "script": "dev",
+      "path": "backend",
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "🌐Build: All",
+      "dependsOn": ["Launch FE", "Launch BE"],
+      "dependsOrder": "parallel",
+      "group": "build"
+    },
+    {
+      "type": "shell",
+      "command": "taskkill /f /im node.exe",
+      "problemMatcher": [],
+      "label": "💀 KILL PROCESSES",
+      "detail": "taskkill /f /im node.exe"
+    }
+  ]
+}
