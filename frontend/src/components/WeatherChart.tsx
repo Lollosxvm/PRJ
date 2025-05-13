@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react'
+// frontend/src/components/WeatherChart.tsx
+import { useEffect, useState, type FC } from 'react'
+
 import {
   ResponsiveContainer,
   LineChart,
@@ -9,10 +11,28 @@ import {
   Legend,
 } from 'recharts'
 
-export function WeatherChart({ lat = 44.5, lon = 11.3 }) {
-  const [data, setData] = useState([])
+// tipizzazione dei singoli punti orari
+interface HourlyPoint {
+  ts: number
+  temp: number
+  humidity: number
+}
+
+// ciò che passerai da App.tsx
+interface WeatherChartProps {
+  lat?: number
+  lon?: number
+}
+
+export const WeatherChart: FC<WeatherChartProps> = ({
+  lat = 44.5,
+  lon = 11.3,
+}) => {
+  const [data, setData] = useState<
+    { hour: string; temp: number; humidity: number }[]
+  >([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     setLoading(true)
@@ -21,10 +41,8 @@ export function WeatherChart({ lat = 44.5, lon = 11.3 }) {
         if (!res.ok) throw new Error(`Status ${res.status}`)
         return res.json()
       })
-      .then(({ hourly }) => {
-        // Converti ts (epoch sec) in orario leggibile
+      .then(({ hourly }: { hourly: HourlyPoint[] }) => {
         const parsed = hourly.map((h) => ({
-          // new Date(h.ts * 1000).getHours() → numero 0–23
           hour: new Date(h.ts * 1000).getHours() + ':00',
           temp: h.temp,
           humidity: h.humidity,
@@ -39,7 +57,7 @@ export function WeatherChart({ lat = 44.5, lon = 11.3 }) {
   }, [lat, lon])
 
   if (loading) return <div>Loading weather…</div>
-  if (error)   return <div>Error: {error}</div>
+  if (error) return <div>Error: {error}</div>
 
   return (
     <div className="bg-white shadow rounded-lg p-4">
