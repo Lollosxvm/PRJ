@@ -103,6 +103,20 @@ export default function App() {
           />
         </div>
       </section>
+      {/* SIMULAZIONE AMBIENTALE */}
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold text-gray-700">
+          Simulazione Ambientale
+        </h2>
+        <p className="text-gray-500">
+          Genera dati sintetici di temperatura, umidità e resa: sperimenta
+          diversi scenari per capire l’impatto delle condizioni meteo sulle tue
+          colture.
+        </p>
+        <div className="bg-white p-4 rounded-lg shadow">
+          <SimulationControl />
+        </div>
+      </section>
 
       {/* PREVISIONI ORARIE */}
       <section className="space-y-4">
@@ -148,21 +162,6 @@ export default function App() {
           ) : (
             <p className="text-gray-500">Nessun dato disponibile</p>
           )}
-        </div>
-      </section>
-
-      {/* SIMULAZIONE AMBIENTALE */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-700">
-          Simulazione Ambientale
-        </h2>
-        <p className="text-gray-500">
-          Genera dati sintetici di temperatura, umidità e resa: sperimenta
-          diversi scenari per capire l’impatto delle condizioni meteo sulle tue
-          colture.
-        </p>
-        <div className="bg-white p-4 rounded-lg shadow">
-          <SimulationControl />
         </div>
       </section>
     </main>
