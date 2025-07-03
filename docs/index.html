@@ -23,7 +23,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "PW Bank",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "description": "Documentazione completa delle API implementate",
       "contact": {
     "name": "Lorenzo Sijinardi",
@@ -64,7 +64,7 @@
     }
   ],
   "paths": {
-    "/api/login": {
+"/api/login": {
   "post": {
        "summary": "POST /api/login",
     "description": "Effettua il login dell’utente tramite email e password. Se le credenziali sono corrette, restituisce un token JWT e i dati essenziali dell’utente. Questo endpoint è pubblico e non richiede autenticazione preventiva.",
@@ -81,6 +81,10 @@
               "password": { "type": "string", "example": "superpassword" }
             },
             "required": ["email", "password"]
+          },
+          "example": {
+            "email": "mario@esempio.it",
+            "password": "superpassword"
           }
         }
       }
@@ -136,7 +140,7 @@
 },
 "/api/utente/me": {
   "get": {
-  "summary": "GET /api/utente/me",
+  "summary": "api/utente/me",
     "description": "Restituisce tutte le informazioni del profilo utente autenticato: nome, cognome, email, telefono e indirizzi. L’utente deve essere autenticato tramite token JWT.",
     "tags": ["Utente"],
     "responses": {
@@ -232,7 +236,7 @@
 },
 "/api/mutuo": {
   "get": {
-   "summary": "GET /api/mutuo",
+   "summary": "api/mutuo",
     "description": "Restituisce la situazione dettagliata delle rate del mutuo dell’utente autenticato, suddivise tra pagate, in scadenza e da pagare. Richiede autenticazione JWT.",
     "tags": ["Mutuo e Prestiti"],
      "responses": {
@@ -280,7 +284,7 @@
 },
 "/api/prestiti": {
   "get": {
-       "summary": "GET /api/prestiti",
+       "summary": "api/prestiti",
     "description": "Restituisce la situazione dettagliata delle rate dei prestiti dell’utente autenticato, suddivise tra pagate, in scadenza e da pagare. Richiede autenticazione JWT.",
     "tags": ["Mutuo e Prestiti"],
      "responses": {
@@ -328,7 +332,7 @@
 },
 "/api/investimenti": {
   "post": {
-        "summary": "GET /api/investimenti",
+        "summary": "api/investimenti",
     "description": "Restituisce la lista completa di tutti gli investimenti effettuati dall’utente autenticato, inclusi dati come asset, quantità, data e valore di acquisto.",
     "tags": ["Investimenti"],
      "requestBody": {
@@ -389,7 +393,7 @@
 },
 "/api/investimenti/composizione": {
   "get": {
-    "summary": "GET /api/investimenti/composizione",
+    "summary": "api/investimenti/composizione",
     "description": "Restituisce la composizione percentuale del portafoglio investimenti dell’utente, mostrando il peso relativo dei diversi asset (es. Bitcoin vs altri).",
     "tags": ["Investimenti"],
       "responses": {
@@ -423,7 +427,7 @@
 },
 "/api/investimenti/andamento": {
   "get": {
-      "summary": "GET /api/investimenti/andamento",
+      "summary": "api/investimenti/andamento",
     "description": "Restituisce l’andamento degli investimenti negli ultimi due mesi, calcolando la variazione percentuale tra il valore attuale e quello del mese precedente.",
     "tags": ["Investimenti"],
     "responses": {
@@ -456,7 +460,7 @@
 },
 "/api/investimenti/crypto": {
   "get": {
-    "summary": "GET /api/investimenti/crypto",
+    "summary": "api/investimenti/crypto",
     "description": "Restituisce dati aggiornati di mercato su una specifica criptovaluta (prezzi, volumi, andamento) tramite integrazione con CoinGecko. Questo endpoint è pubblico e non richiede autenticazione.",
     "tags": ["Investimenti"],
      "security": [],
@@ -490,8 +494,8 @@
 },
 "/api/news": {
   "get": {
-    "summary": "GET /api/news",
-    "description": "Restituisce una lista delle ultime notizie economiche e aggiornamenti sulle criptovalute per l’asset selezionato, tramite integrazione con il provider CryptoPanic.",
+    "summary": "api/news",
+    "description": "Restituisce una lista delle ultime notizie economiche e aggiornamenti sulle criptovalute per l’asset selezionato, tramite integrazione con il provider CryptoPanic.  **Attenzione:** l’API ha un limite di 100 richieste mensili per ciascun utente. Se il limite viene superato, verrà restituito errore 429 (Too Many Requests).",
     "tags": ["News"],
       "parameters": [
       {
@@ -577,7 +581,7 @@
 },
 "/api/transazioni": {
   "get": {
-    "summary": "GET /api/transazioni",
+    "summary": "api/transazioni",
     "description": "Restituisce la lista di tutte le transazioni (entrate e uscite) dell’utente autenticato, ordinate dalla più recente alla più vecchia.",
     "tags": ["Transazioni"],
     "responses": {
@@ -619,7 +623,7 @@
 },
 "/api/transazioni/spese-per-paese": {
   "get": {
-    "summary": "GET /api/transazioni/spese-per-paese",
+    "summary": "api/transazioni/spese-per-paese",
     "description": "Restituisce le spese totali sostenute dall’utente, suddivise per paese di destinazione. Utile per analizzare la distribuzione geografica delle uscite.",
     "tags": ["Transazioni"],
     "responses": {
@@ -651,7 +655,7 @@
 },
 "/api/transazioni/spese-recenti": {
   "get": {
-    "summary": "GET /api/transazioni/spese-recenti",
+    "summary": "api/transazioni/spese-recenti",
     "description": "Restituisce le ultime 10 transazioni completate dall’utente, mostrando categoria, importo, data e metodo di pagamento.",
     "tags": ["Transazioni"],
     "responses": {
@@ -689,7 +693,7 @@
 },
 "/api/transazioni/spese-per-categorie": {
   "get": {
-       "summary": "GET /api/transazioni/spese-per-categorie",
+       "summary": "api/transazioni/spese-per-categorie",
     "description": "Restituisce il totale delle spese raggruppate per categoria e mese, filtrando per un intervallo di date specificato tramite i parametri `from` e `to`.",
     "tags": ["Transazioni"],
     "parameters": [
@@ -741,7 +745,7 @@
 },
 "/api/transazioni/andamento": {
   "get": {
-     "summary": "GET /api/transazioni/andamento-trimestrale",
+     "summary": "api/transazioni/andamento-trimestrale",
     "description": "Restituisce, per ciascun mese dell’intervallo specificato, il totale di entrate, uscite e saldo. Utile per visualizzare l’andamento finanziario mensile.",
     "tags": ["Transazioni"],
      "parameters": [
@@ -803,7 +807,7 @@
 },
 "/api/saldo": {
   "get": {
-    "summary": "GET /api/saldo",
+    "summary": "api/saldo",
     "description": "Restituisce il saldo corrente calcolato su tutte le transazioni completate dell’utente autenticato.",
     "tags": ["Transazioni"],
     "responses": {
