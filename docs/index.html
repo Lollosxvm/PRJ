@@ -23,8 +23,13 @@
   "openapi": "3.0.0",
   "info": {
     "title": "PW Bank",
-    "version": "2.8.0",
-    "description": "Documentazione completa delle API implementate"
+    "version": "2.9.0",
+    "description": "Documentazione completa delle API implementate",
+      "contact": {
+    "name": "Lorenzo Sijinardi",
+    "email": "lorenzosijinardi@libero.it",
+    "linkedin": "https://www.linkedin.com/in/lorenzo-sijinardi"
+  }
   },
   "servers": [
     {
@@ -37,6 +42,7 @@
   "post": {
     "summary": "Login utente",
     "description": "Effettua il login restituendo un token JWT e i dati dell'utente.",
+     "security": [],
     "requestBody": {
       "required": true,
       "content": {
@@ -415,6 +421,7 @@
 "/api/investimenti/crypto": {
   "get": {
     "summary": "Storico prezzi asset (CoinGecko)",
+         "security": [],
     "parameters": [
       { "name": "asset", "in": "query", "required": false, "schema": { "type": "string" }, "example": "bitcoin" },
       { "name": "days", "in": "query", "required": false, "schema": { "type": "string" }, "example": "90" },
@@ -783,7 +790,6 @@
     }
   }
 }
-
   },
   "components": {
   "schemas": {
