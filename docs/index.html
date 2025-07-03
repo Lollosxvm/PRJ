@@ -19,7 +19,599 @@
   <body>
     <div id="redoc-container"></div>
     <script>
-      const spec = {"openapi": "3.0.0", "info": {"title": "API Fintech Dashboard", "version": "1.0.0", "description": "Documentazione completa delle API per la gestione finanziaria personale"}, "servers": [{"url": "http://localhost:3001/api", "description": "Ambiente di sviluppo locale"}], "paths": {"/api/login": {"post": {"summary": "Login utente", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}, "/api/register": {"post": {"summary": "Registrazione utente", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}, "/api/mutuo": {"get": {"summary": "Elenco rate mutuo", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}, "/api/mutuo/{id}": {"post": {"summary": "Dettaglio rata mutuo", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}, "/api/prestiti": {"get": {"summary": "Elenco rate prestiti", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}, "/api/prestiti/{id}": {"post": {"summary": "Dettaglio rata prestito", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}, "/api/investimenti": {"get": {"summary": "Elenco investimenti", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}, "/api/investimenti/acquista": {"post": {"summary": "Acquisto asset", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}, "/api/investimenti/vendi": {"post": {"summary": "Vendita asset", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}, "/api/news": {"get": {"summary": "Notizie economiche", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}, "/api/transazioni": {"get": {"summary": "Lista transazioni", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}, "/api/transazioni/aggiungi": {"post": {"summary": "Aggiungi transazione", "responses": {"200": {"description": "Successo"}, "400": {"description": "Richiesta non valida", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "401": {"description": "Non autorizzato", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "404": {"description": "Risorsa non trovata", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}, "500": {"description": "Errore interno del server", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}}}}}}, "components": {"schemas": {"ErrorResponse": {"type": "object", "properties": {"error": {"type": "string"}}}}}};
+      const spec = {
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Fintech Dashboard",
+    "version": "1.0.0",
+    "description": "Documentazione completa delle API per la gestione finanziaria personale"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/api",
+      "description": "Ambiente di sviluppo locale"
+    }
+  ],
+  "paths": {
+    "/api/login": {
+  "post": {
+    "summary": "Login utente",
+    "description": "Effettua il login restituendo un token JWT e i dati dell'utente.",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "email": { "type": "string", "example": "mario@esempio.it" },
+              "password": { "type": "string", "example": "superpassword" }
+            },
+            "required": ["email", "password"]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Login effettuato con successo",
+        "content": {
+          "application/json": {
+            "example": {
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+              "utente": {
+                "id": 1,
+                "nome": "Mario Rossi",
+                "email": "mario@esempio.it"
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Email e/o password mancanti",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "example": { "message": "Email e password sono obbligatorie" }
+          }
+        }
+      },
+      "401": {
+        "description": "Email non registrata o password errata",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "examples": {
+              "Email non registrata": { "value": { "message": "Email non registrata" } },
+              "Password errata": { "value": { "message": "Password errata" } }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Errore interno del server",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "example": { "message": "Errore server" }
+          }
+        }
+      }
+    }
+  }
+},
+    "/api/mutuo": {
+  "get": {
+    "summary": "Elenco rate mutuo",
+    "description": "Recupera la situazione delle rate del mutuo per l'utente autenticato. Restituisce il numero e il totale delle rate pagate, in scadenza e da pagare.",
+    "responses": {
+      "200": {
+        "description": "Situazione mutuo recuperata con successo",
+        "content": {
+          "application/json": {
+            "example": {
+              "pagata": { "count": 12, "totale": 4500 },
+              "in_scadenza": { "count": 1, "totale": 370 },
+              "da_pagare": { "count": 10, "totale": 3700 }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "example": { "message": "Token non valido o mancante" }
+          }
+        }
+      },
+      "404": {
+        "description": "Nessuna rata mutuo trovata per questo utente",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "example": { "message": "Nessuna rata mutuo trovata per questo utente" }
+          }
+        }
+      },
+      "500": {
+        "description": "Errore interno del server",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "example": { "message": "Errore nel server" }
+          }
+        }
+      }
+    }
+  }
+},
+    "/api/mutuo/{id}": {
+      "post": {
+        "summary": "Dettaglio rata mutuo",
+        "responses": {
+          "200": {
+            "description": "Successo"
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorizzato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Risorsa non trovata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errore interno del server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/prestiti": {
+      "get": {
+        "summary": "Elenco rate prestiti",
+        "responses": {
+          "200": {
+            "description": "Successo"
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorizzato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Risorsa non trovata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errore interno del server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/prestiti/{id}": {
+      "post": {
+        "summary": "Dettaglio rata prestito",
+        "responses": {
+          "200": {
+            "description": "Successo"
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorizzato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Risorsa non trovata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errore interno del server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/investimenti": {
+      "get": {
+        "summary": "Elenco investimenti",
+        "responses": {
+          "200": {
+            "description": "Successo"
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorizzato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Risorsa non trovata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errore interno del server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/investimenti/acquista": {
+      "post": {
+        "summary": "Acquisto asset",
+        "responses": {
+          "200": {
+            "description": "Successo"
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorizzato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Risorsa non trovata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errore interno del server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/investimenti/vendi": {
+      "post": {
+        "summary": "Vendita asset",
+        "responses": {
+          "200": {
+            "description": "Successo"
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorizzato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Risorsa non trovata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errore interno del server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/news": {
+      "get": {
+        "summary": "Notizie economiche",
+        "responses": {
+          "200": {
+            "description": "Successo"
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorizzato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Risorsa non trovata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errore interno del server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transazioni": {
+      "get": {
+        "summary": "Lista transazioni",
+        "responses": {
+          "200": {
+            "description": "Successo"
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorizzato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Risorsa non trovata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errore interno del server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transazioni/aggiungi": {
+      "post": {
+        "summary": "Aggiungi transazione",
+        "responses": {
+          "200": {
+            "description": "Successo"
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorizzato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Risorsa non trovata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Errore interno del server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+};
       Redoc.init(spec, {
         scrollYOffset: 50,
         hideDownloadButton: false,
