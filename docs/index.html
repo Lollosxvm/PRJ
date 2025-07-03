@@ -23,7 +23,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "PW Bank",
-    "version": "2.9.0",
+    "version": "3.1.0",
     "description": "Documentazione completa delle API implementate",
       "contact": {
     "name": "Lorenzo Sijinardi",
@@ -31,6 +31,32 @@
     "linkedin": "https://www.linkedin.com/in/lorenzo-sijinardi"
   }
   },
+  "tags": [
+    {
+      "name": "Autenticazione",
+      "description": "Endpoint di login e autenticazione"
+    },
+    {
+      "name": "Utente",
+      "description": "Gestione profilo personale"
+    },
+    {
+      "name": "Mutuo e Prestiti",
+      "description": "Gestione rate e situazione finanziaria"
+    },
+    {
+      "name": "Investimenti",
+      "description": "Gestione portafoglio investimenti e grafici"
+    },
+    {
+      "name": "Transazioni",
+      "description": "Gestione movimenti e reportistica"
+    },
+    {
+      "name": "News",
+      "description": "Notizie economiche e aggiornamenti"
+    }
+  ],
   "servers": [
     {
       "url": "http://localhost:3001/api",
@@ -40,8 +66,9 @@
   "paths": {
     "/api/login": {
   "post": {
-    "summary": "Login utente",
-    "description": "Effettua il login restituendo un token JWT e i dati dell'utente.",
+       "summary": "POST /api/login",
+    "description": "Effettua il login dell’utente tramite email e password. Se le credenziali sono corrette, restituisce un token JWT e i dati essenziali dell’utente. Questo endpoint è pubblico e non richiede autenticazione preventiva.",
+    "tags": ["Autenticazione"],
      "security": [],
     "requestBody": {
       "required": true,
@@ -109,8 +136,9 @@
 },
 "/api/utente/me": {
   "get": {
-    "summary": "Recupera il profilo utente",
-    "description": "Restituisce le informazioni del profilo utente autenticato.",
+  "summary": "GET /api/utente/me",
+    "description": "Restituisce tutte le informazioni del profilo utente autenticato: nome, cognome, email, telefono e indirizzi. L’utente deve essere autenticato tramite token JWT.",
+    "tags": ["Utente"],
     "responses": {
       "200": {
         "description": "Profilo recuperato con successo",
@@ -151,8 +179,9 @@
 },
 "/api/utente/update": {
   "put": {
-    "summary": "Aggiorna il profilo utente",
-    "description": "Aggiorna i dati del profilo dell’utente autenticato. Alcuni campi sono obbligatori.",
+    "summary": "PUT /api/utente/update",
+    "description": "Aggiorna le informazioni del profilo utente (nome, cognome, email, telefono, indirizzo, città). È necessario essere autenticati e fornire tutti i campi obbligatori.",
+    "tags": ["Utente"],
     "requestBody": {
       "required": true,
       "content": {
@@ -203,9 +232,10 @@
 },
 "/api/mutuo": {
   "get": {
-    "summary": "Elenco rate mutuo",
-    "description": "Recupera la situazione delle rate del mutuo per l'utente autenticato. Restituisce il numero e il totale delle rate pagate, in scadenza e da pagare.",
-    "responses": {
+   "summary": "GET /api/mutuo",
+    "description": "Restituisce la situazione dettagliata delle rate del mutuo dell’utente autenticato, suddivise tra pagate, in scadenza e da pagare. Richiede autenticazione JWT.",
+    "tags": ["Mutuo e Prestiti"],
+     "responses": {
       "200": {
         "description": "Situazione mutuo recuperata con successo",
         "content": {
@@ -250,9 +280,10 @@
 },
 "/api/prestiti": {
   "get": {
-    "summary": "Elenco rate prestiti",
-    "description": "Recupera la situazione delle rate dei prestiti per l'utente autenticato. Restituisce il numero e il totale delle rate pagate, in scadenza e da pagare.",
-    "responses": {
+       "summary": "GET /api/prestiti",
+    "description": "Restituisce la situazione dettagliata delle rate dei prestiti dell’utente autenticato, suddivise tra pagate, in scadenza e da pagare. Richiede autenticazione JWT.",
+    "tags": ["Mutuo e Prestiti"],
+     "responses": {
       "200": {
         "description": "Situazione prestiti recuperata con successo",
         "content": {
@@ -297,9 +328,10 @@
 },
 "/api/investimenti": {
   "post": {
-    "summary": "Registra un'operazione di investimento (acquisto o vendita)",
-    "description": "Registra un acquisto o una vendita di asset. Specificare il tipo di operazione nel campo 'operazione' del body.",
-    "requestBody": {
+        "summary": "GET /api/investimenti",
+    "description": "Restituisce la lista completa di tutti gli investimenti effettuati dall’utente autenticato, inclusi dati come asset, quantità, data e valore di acquisto.",
+    "tags": ["Investimenti"],
+     "requestBody": {
       "required": true,
       "content": {
         "application/json": {
@@ -357,8 +389,10 @@
 },
 "/api/investimenti/composizione": {
   "get": {
-    "summary": "Composizione del portafoglio investimenti",
-    "responses": {
+    "summary": "GET /api/investimenti/composizione",
+    "description": "Restituisce la composizione percentuale del portafoglio investimenti dell’utente, mostrando il peso relativo dei diversi asset (es. Bitcoin vs altri).",
+    "tags": ["Investimenti"],
+      "responses": {
       "200": {
         "description": "Composizione calcolata con successo",
         "content": {
@@ -389,7 +423,9 @@
 },
 "/api/investimenti/andamento": {
   "get": {
-    "summary": "Andamento degli investimenti",
+      "summary": "GET /api/investimenti/andamento",
+    "description": "Restituisce l’andamento degli investimenti negli ultimi due mesi, calcolando la variazione percentuale tra il valore attuale e quello del mese precedente.",
+    "tags": ["Investimenti"],
     "responses": {
       "200": {
         "description": "Andamento calcolato con successo",
@@ -420,8 +456,10 @@
 },
 "/api/investimenti/crypto": {
   "get": {
-    "summary": "Storico prezzi asset (CoinGecko)",
-         "security": [],
+    "summary": "GET /api/investimenti/crypto",
+    "description": "Restituisce dati aggiornati di mercato su una specifica criptovaluta (prezzi, volumi, andamento) tramite integrazione con CoinGecko. Questo endpoint è pubblico e non richiede autenticazione.",
+    "tags": ["Investimenti"],
+     "security": [],
     "parameters": [
       { "name": "asset", "in": "query", "required": false, "schema": { "type": "string" }, "example": "bitcoin" },
       { "name": "days", "in": "query", "required": false, "schema": { "type": "string" }, "example": "90" },
@@ -452,8 +490,10 @@
 },
 "/api/news": {
   "get": {
-    "summary": "Notizie economiche dalle principali fonti crypto",
-    "parameters": [
+    "summary": "GET /api/news",
+    "description": "Restituisce una lista delle ultime notizie economiche e aggiornamenti sulle criptovalute per l’asset selezionato, tramite integrazione con il provider CryptoPanic.",
+    "tags": ["News"],
+      "parameters": [
       {
         "name": "asset",
         "in": "query",
@@ -537,8 +577,9 @@
 },
 "/api/transazioni": {
   "get": {
-    "summary": "Lista completa delle transazioni",
-    "description": "Restituisce la lista di tutte le transazioni registrate dall'utente autenticato.",
+    "summary": "GET /api/transazioni",
+    "description": "Restituisce la lista di tutte le transazioni (entrate e uscite) dell’utente autenticato, ordinate dalla più recente alla più vecchia.",
+    "tags": ["Transazioni"],
     "responses": {
       "200": {
         "description": "Lista transazioni recuperata con successo",
@@ -578,8 +619,9 @@
 },
 "/api/transazioni/spese-per-paese": {
   "get": {
-    "summary": "Spese totali per paese",
-    "description": "Restituisce le spese totali raggruppate per paese dell'utente autenticato.",
+    "summary": "GET /api/transazioni/spese-per-paese",
+    "description": "Restituisce le spese totali sostenute dall’utente, suddivise per paese di destinazione. Utile per analizzare la distribuzione geografica delle uscite.",
+    "tags": ["Transazioni"],
     "responses": {
       "200": {
         "description": "Spese per paese recuperate con successo",
@@ -609,8 +651,9 @@
 },
 "/api/transazioni/spese-recenti": {
   "get": {
-    "summary": "Ultime 10 transazioni",
-    "description": "Restituisce le ultime 10 transazioni dell'utente autenticato.",
+    "summary": "GET /api/transazioni/spese-recenti",
+    "description": "Restituisce le ultime 10 transazioni completate dall’utente, mostrando categoria, importo, data e metodo di pagamento.",
+    "tags": ["Transazioni"],
     "responses": {
       "200": {
         "description": "Transazioni recenti recuperate con successo",
@@ -646,8 +689,9 @@
 },
 "/api/transazioni/spese-per-categorie": {
   "get": {
-    "summary": "Spese per categoria e mese",
-    "description": "Restituisce la somma delle spese raggruppate per categoria e mese in un intervallo di date. Richiede parametri di query 'from' e 'to' (es. '2024-05-01').",
+       "summary": "GET /api/transazioni/spese-per-categorie",
+    "description": "Restituisce il totale delle spese raggruppate per categoria e mese, filtrando per un intervallo di date specificato tramite i parametri `from` e `to`.",
+    "tags": ["Transazioni"],
     "parameters": [
       {
         "name": "from",
@@ -697,9 +741,10 @@
 },
 "/api/transazioni/andamento": {
   "get": {
-    "summary": "Andamento mensile di entrate, uscite e saldo",
-    "description": "Restituisce la somma di entrate, uscite e saldo per ogni mese nell'intervallo richiesto. Richiede parametri di query 'from' e 'to' (es. '2024-05-01').",
-    "parameters": [
+     "summary": "GET /api/transazioni/andamento-trimestrale",
+    "description": "Restituisce, per ciascun mese dell’intervallo specificato, il totale di entrate, uscite e saldo. Utile per visualizzare l’andamento finanziario mensile.",
+    "tags": ["Transazioni"],
+     "parameters": [
       {
         "name": "from",
         "in": "query",
@@ -758,8 +803,9 @@
 },
 "/api/saldo": {
   "get": {
-    "summary": "Saldo aggiornato dell'utente",
-    "description": "Restituisce il saldo totale calcolato a partire dalle transazioni dell'utente autenticato.",
+    "summary": "GET /api/saldo",
+    "description": "Restituisce il saldo corrente calcolato su tutte le transazioni completate dell’utente autenticato.",
+    "tags": ["Transazioni"],
     "responses": {
       "200": {
         "description": "Saldo recuperato con successo",
