@@ -19,11 +19,11 @@
   <body>
     <div id="redoc-container"></div>
     <script>
-      const spec = {
+      const spec ={
   "openapi": "3.0.0",
   "info": {
     "title": "PW Bank",
-    "version": "3.3.0",
+    "version": "3.4.0",
     "description": "Documentazione completa delle API implementate",
       "contact": {
     "name": "Lorenzo Sijinardi",
@@ -34,15 +34,15 @@
   "tags": [
     {
       "name": "Autenticazione",
-      "description": "La sezione Autenticazione raccoglie tutti gli endpoint dedicati alla gestione dell’accesso sicuro all’applicazione tramite credenziali e token JWT. Le operazioni di login sono progettate per garantire la sicurezza e la privacy dell’utente, restituendo un token che dovrà essere utilizzato nelle successive richieste verso le risorse protette dell’API. La documentazione fornisce esempi dettagliati e gestione centralizzata degli errori di autenticazione."
+      "description": "L’autenticazione è basata su token JWT conforme alle best practice OWASP e garantisce la sicurezza delle credenziali utente. Tutte le richieste devono essere effettuate tramite HTTPS, nel rispetto della normativa GDPR sulla tutela dei dati personali."
     },
     {
       "name": "Utente",
-      "description": "La sezione Utente contiene gli endpoint per la gestione del profilo personale, consentendo all’utente autenticato di visualizzare e aggiornare le proprie informazioni anagrafiche e di contatto. Le operazioni incluse permettono di mantenere i dati sempre aggiornati e sicuri, favorendo una migliore personalizzazione dell’esperienza e il rispetto della normativa in materia di protezione dei dati."
+      "description": "La sezione Utente contiene gli endpoint per la gestione del profilo personale, consentendo all’utente autenticato di visualizzare e aggiornare le proprie informazioni anagrafiche e di contatto. Le operazioni incluse permettono di mantenere i dati sempre aggiornati e sicuri, favorendo una migliore personalizzazione dell’esperienza e il rispetto della normativa in materia di protezione dei dati GDPR (Regolamento UE 2016/679)."
     },
     {
       "name": "Mutuo e Prestiti",
-      "description": "La sezione Mutuo e Prestiti offre all’utente un quadro completo della propria posizione finanziaria relativamente a mutui e prestiti attivi. Gli endpoint permettono di monitorare l’andamento delle rate, distinguendo tra pagate, in scadenza e residue, e forniscono strumenti utili per una corretta pianificazione finanziaria personale."
+      "description": "La sezione Mutuo e Prestiti offre all’utente un quadro completo della propria posizione finanziaria relativamente a mutui e prestiti attivi. Gli endpoint permettono di monitorare l’andamento delle rate, distinguendo tra pagate, in scadenza e residue, e forniscono strumenti utili per una corretta pianificazione finanziaria personale.Tutti i dati finanziari e le operazioni sono accessibili esclusivamente tramite autenticazione JWT, in linea con la Direttiva PSD2 e il GDPR."
     },
     {
       "name": "Investimenti",
@@ -54,7 +54,7 @@
     },
     {
       "name": "News",
-      "description": "La sezione News integra nell’applicazione un servizio di aggiornamento sulle ultime notizie economiche e sull’andamento dei principali asset e criptovalute, grazie a fonti specializzate come CryptoPanic. In questo modo l’utente può restare informato sulle dinamiche di mercato direttamente dall’interfaccia della dashboard, con la massima rapidità e semplicità."
+      "description": "La sezione News integra nell’applicazione un servizio di aggiornamento sulle ultime notizie economiche e sull’andamento dei principali asset e criptovalute, grazie a fonti specializzate come CryptoPanic. In questo modo l’utente può restare informato sulle dinamiche di mercato direttamente dall’interfaccia della dashboard, con la massima rapidità e semplicità.Le informazioni provenienti da provider esterni sono soggette a rate limiting per garantire la qualità del servizio e prevenire abusi. L’integrazione rispetta le condizioni d’uso e la protezione dei dati prevista dai servizi terzi."
     }
   ],
   "servers": [
