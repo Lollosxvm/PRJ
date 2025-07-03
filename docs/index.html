@@ -23,7 +23,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "PW Bank",
-    "version": "3.2.0",
+    "version": "3.3.0",
     "description": "Documentazione completa delle API implementate",
       "contact": {
     "name": "Lorenzo Sijinardi",
@@ -34,27 +34,27 @@
   "tags": [
     {
       "name": "Autenticazione",
-      "description": "Endpoint di login e autenticazione"
+      "description": "La sezione Autenticazione raccoglie tutti gli endpoint dedicati alla gestione dell’accesso sicuro all’applicazione tramite credenziali e token JWT. Le operazioni di login sono progettate per garantire la sicurezza e la privacy dell’utente, restituendo un token che dovrà essere utilizzato nelle successive richieste verso le risorse protette dell’API. La documentazione fornisce esempi dettagliati e gestione centralizzata degli errori di autenticazione."
     },
     {
       "name": "Utente",
-      "description": "Gestione profilo personale"
+      "description": "La sezione Utente contiene gli endpoint per la gestione del profilo personale, consentendo all’utente autenticato di visualizzare e aggiornare le proprie informazioni anagrafiche e di contatto. Le operazioni incluse permettono di mantenere i dati sempre aggiornati e sicuri, favorendo una migliore personalizzazione dell’esperienza e il rispetto della normativa in materia di protezione dei dati."
     },
     {
       "name": "Mutuo e Prestiti",
-      "description": "Gestione rate e situazione finanziaria"
+      "description": "La sezione Mutuo e Prestiti offre all’utente un quadro completo della propria posizione finanziaria relativamente a mutui e prestiti attivi. Gli endpoint permettono di monitorare l’andamento delle rate, distinguendo tra pagate, in scadenza e residue, e forniscono strumenti utili per una corretta pianificazione finanziaria personale."
     },
     {
       "name": "Investimenti",
-      "description": "Gestione portafoglio investimenti e grafici"
+      "description": "Nella sezione Investimenti sono raccolte tutte le API relative alla gestione e al monitoraggio del portafoglio investimenti dell’utente. Gli endpoint disponibili consentono di registrare nuove operazioni di investimento, visualizzare la composizione e l’andamento storico del portafoglio, nonché di integrare dati di mercato aggiornati tramite provider esterni. L’obiettivo è fornire una visione dettagliata e sempre aggiornata della propria strategia di investimento."
     },
     {
       "name": "Transazioni",
-      "description": "Gestione movimenti e reportistica"
+      "description": "La sezione Transazioni mette a disposizione endpoint per la consultazione e l’analisi di tutti i movimenti economici dell’utente, siano essi entrate o uscite. La reportistica avanzata permette di aggregare le spese per categorie, paese o intervallo temporale, supportando l’utente nell’attività di budgeting e controllo finanziario. È inoltre possibile recuperare rapidamente le ultime operazioni effettuate e visualizzare l’andamento finanziario mensile."
     },
     {
       "name": "News",
-      "description": "Notizie economiche e aggiornamenti"
+      "description": "La sezione News integra nell’applicazione un servizio di aggiornamento sulle ultime notizie economiche e sull’andamento dei principali asset e criptovalute, grazie a fonti specializzate come CryptoPanic. In questo modo l’utente può restare informato sulle dinamiche di mercato direttamente dall’interfaccia della dashboard, con la massima rapidità e semplicità."
     }
   ],
   "servers": [
@@ -66,7 +66,7 @@
   "paths": {
 "/api/login": {
   "post": {
-       "summary": "POST /api/login",
+       "summary": "api/login",
     "description": "Effettua il login dell’utente tramite email e password. Se le credenziali sono corrette, restituisce un token JWT e i dati essenziali dell’utente. Questo endpoint è pubblico e non richiede autenticazione preventiva.",
     "tags": ["Autenticazione"],
      "security": [],
@@ -143,6 +143,17 @@
   "summary": "api/utente/me",
     "description": "Restituisce tutte le informazioni del profilo utente autenticato: nome, cognome, email, telefono e indirizzi. L’utente deve essere autenticato tramite token JWT.",
     "tags": ["Utente"],
+      "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": { "type": "string", "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." }
+      }
+    ],
     "responses": {
       "200": {
         "description": "Profilo recuperato con successo",
@@ -183,9 +194,12 @@
 },
 "/api/utente/update": {
   "put": {
-    "summary": "PUT /api/utente/update",
+    "summary": "api/utente/update",
     "description": "Aggiorna le informazioni del profilo utente (nome, cognome, email, telefono, indirizzo, città). È necessario essere autenticati e fornire tutti i campi obbligatori.",
     "tags": ["Utente"],
+    "security": [
+      { "bearerAuth": [] }
+    ],
     "requestBody": {
       "required": true,
       "content": {
@@ -202,6 +216,15 @@
               "citta": { "type": "string", "example": "Torino" }
             },
             "required": ["nome", "cognome", "email"]
+          },
+          "example": {
+            "nome": "Mario",
+            "cognome": "Rossi",
+            "email": "mario.rossi@email.it",
+            "telefono": "3491234567",
+            "indirizzo1": "Via Verdi 21",
+            "indirizzo2": "Scala B, Int. 5",
+            "citta": "Torino"
           }
         }
       }
@@ -236,10 +259,25 @@
 },
 "/api/mutuo": {
   "get": {
-   "summary": "api/mutuo",
+    "summary": "api/mutuo",
     "description": "Restituisce la situazione dettagliata delle rate del mutuo dell’utente autenticato, suddivise tra pagate, in scadenza e da pagare. Richiede autenticazione JWT.",
     "tags": ["Mutuo e Prestiti"],
-     "responses": {
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+      }
+    ],
+    "responses": {
       "200": {
         "description": "Situazione mutuo recuperata con successo",
         "content": {
@@ -284,10 +322,25 @@
 },
 "/api/prestiti": {
   "get": {
-       "summary": "api/prestiti",
+    "summary": "api/prestiti",
     "description": "Restituisce la situazione dettagliata delle rate dei prestiti dell’utente autenticato, suddivise tra pagate, in scadenza e da pagare. Richiede autenticazione JWT.",
     "tags": ["Mutuo e Prestiti"],
-     "responses": {
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+      }
+    ],
+    "responses": {
       "200": {
         "description": "Situazione prestiti recuperata con successo",
         "content": {
@@ -331,11 +384,90 @@
   }
 },
 "/api/investimenti": {
-  "post": {
-        "summary": "api/investimenti",
-    "description": "Restituisce la lista completa di tutti gli investimenti effettuati dall’utente autenticato, inclusi dati come asset, quantità, data e valore di acquisto.",
+  "get": {
+    "summary": "api/investimenti",
+    "description": "Restituisce la lista completa di tutti gli investimenti effettuati dall’utente autenticato, ordinati dalla più recente alla più vecchia. È necessario autenticarsi tramite token JWT nell'header Authorization.",
     "tags": ["Investimenti"],
-     "requestBody": {
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Lista degli investimenti recuperata con successo",
+        "content": {
+          "application/json": {
+            "example": [
+              {
+                "id": 1,
+                "utente": 5,
+                "asset": "bitcoin",
+                "operazione": "acquisto",
+                "quantita": 0.5,
+                "prezzo_unitario": 27000,
+                "data_operazione": "2024-06-11T09:21:17.000Z"
+              },
+              {
+                "id": 2,
+                "utente": 5,
+                "asset": "ethereum",
+                "operazione": "acquisto",
+                "quantita": 2,
+                "prezzo_unitario": 2100,
+                "data_operazione": "2024-05-25T14:42:00.000Z"
+              }
+            ]
+          }
+        }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": {
+          "application/json": { "example": { "message": "Token non valido o mancante" } }
+        }
+      },
+      "404": {
+        "description": "Nessun investimento trovato per questo utente",
+        "content": {
+          "application/json": { "example": { "message": "Nessun investimento trovato per questo utente" } }
+        }
+      },
+      "500": {
+        "description": "Errore lato server",
+        "content": {
+          "application/json": { "example": { "message": "Errore lato server" } }
+        }
+      }
+    }
+  },
+  "post": {
+    "summary": "api/investimenti",
+    "description": "Registra un nuovo investimento per l’utente autenticato e aggiorna il saldo. Richiede autenticazione JWT. Tutti i campi sono obbligatori.",
+    "tags": ["Investimenti"],
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": { "type": "string", "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." }
+      }
+    ],
+    "requestBody": {
       "required": true,
       "content": {
         "application/json": {
@@ -348,6 +480,12 @@
               "prezzo_unitario": { "type": "number", "example": 26000 }
             },
             "required": ["asset", "operazione", "quantita", "prezzo_unitario"]
+          },
+          "example": {
+            "asset": "bitcoin",
+            "operazione": "acquisto",
+            "quantita": 0.5,
+            "prezzo_unitario": 28000
           }
         }
       }
@@ -394,9 +532,21 @@
 "/api/investimenti/composizione": {
   "get": {
     "summary": "api/investimenti/composizione",
-    "description": "Restituisce la composizione percentuale del portafoglio investimenti dell’utente, mostrando il peso relativo dei diversi asset (es. Bitcoin vs altri).",
+    "description": "Restituisce la composizione percentuale del portafoglio investimenti dell’utente autenticato, mostrando il peso relativo dei diversi asset (es. Bitcoin vs altri). È necessario il token JWT.",
     "tags": ["Investimenti"],
-      "responses": {
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": { "type": "string", "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." }
+      }
+    ],
+    "responses": {
       "200": {
         "description": "Composizione calcolata con successo",
         "content": {
@@ -427,9 +577,24 @@
 },
 "/api/investimenti/andamento": {
   "get": {
-      "summary": "api/investimenti/andamento",
-    "description": "Restituisce l’andamento degli investimenti negli ultimi due mesi, calcolando la variazione percentuale tra il valore attuale e quello del mese precedente.",
+    "summary": "api/investimenti/andamento",
+    "description": "Restituisce l’andamento degli investimenti negli ultimi due mesi, calcolando la variazione percentuale tra il valore attuale e quello del mese precedente. È necessario essere autenticati tramite token JWT.",
     "tags": ["Investimenti"],
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+      }
+    ],
     "responses": {
       "200": {
         "description": "Andamento calcolato con successo",
@@ -445,15 +610,21 @@
       },
       "401": {
         "description": "Token non valido o mancante",
-        "content": { "application/json": { "example": { "message": "Token non valido o mancante" } } }
+        "content": {
+          "application/json": { "example": { "message": "Token non valido o mancante" } }
+        }
       },
       "404": {
         "description": "Nessun investimento per i periodi richiesti",
-        "content": { "application/json": { "example": { "message": "Nessun investimento per i periodi richiesti" } } }
+        "content": {
+          "application/json": { "example": { "message": "Nessun investimento per i periodi richiesti" } }
+        }
       },
       "500": {
         "description": "Errore nel calcolo andamento investimenti",
-        "content": { "application/json": { "example": { "message": "Errore nel calcolo andamento investimenti." } } }
+        "content": {
+          "application/json": { "example": { "message": "Errore nel calcolo andamento investimenti." } }
+        }
       }
     }
   }
@@ -465,10 +636,31 @@
     "tags": ["Investimenti"],
      "security": [],
     "parameters": [
-      { "name": "asset", "in": "query", "required": false, "schema": { "type": "string" }, "example": "bitcoin" },
-      { "name": "days", "in": "query", "required": false, "schema": { "type": "string" }, "example": "90" },
-      { "name": "vs_currency", "in": "query", "required": false, "schema": { "type": "string" }, "example": "usd" }
-    ],
+  {
+    "name": "asset",
+    "in": "query",
+    "description": "Il nome della criptovaluta da ricercare (esempio: bitcoin, ethereum, solana, ecc.)",
+    "required": false,
+    "schema": { "type": "string" },
+    "example": "bitcoin"
+  },
+  {
+    "name": "days",
+    "in": "query",
+    "description": "Numero di giorni di storico richiesto (esempio: 1, 7, 30, 90, 180, 365, max).",
+    "required": false,
+    "schema": { "type": "string" },
+    "example": "90"
+  },
+  {
+    "name": "vs_currency",
+    "in": "query",
+    "description": "Valuta in cui visualizzare il prezzo (esempio: usd, eur, gbp, ecc.)",
+    "required": false,
+    "schema": { "type": "string" },
+    "example": "usd"
+  }
+],
     "responses": {
       "200": {
         "description": "Dati storico prezzi asset",
@@ -497,15 +689,19 @@
     "summary": "api/news",
     "description": "Restituisce una lista delle ultime notizie economiche e aggiornamenti sulle criptovalute per l’asset selezionato, tramite integrazione con il provider CryptoPanic.  **Attenzione:** l’API ha un limite di 100 richieste mensili per ciascun utente. Se il limite viene superato, verrà restituito errore 429 (Too Many Requests).",
     "tags": ["News"],
-      "parameters": [
-      {
-        "name": "asset",
-        "in": "query",
-        "description": "Asset di cui visualizzare le notizie (bitcoin, ethereum, solana)",
-        "required": false,
-        "schema": { "type": "string", "example": "bitcoin" }
-      }
-    ],
+     "parameters": [
+  {
+    "name": "asset",
+    "in": "query",
+    "description": "Asset di cui visualizzare le notizie (bitcoin, ethereum, solana)",
+    "required": false,
+    "schema": {
+      "type": "string",
+      "example": "bitcoin"
+    }
+  }
+]
+,
     "responses": {
       "200": {
         "description": "Notizie recuperate con successo",
@@ -584,6 +780,21 @@
     "summary": "api/transazioni",
     "description": "Restituisce la lista di tutte le transazioni (entrate e uscite) dell’utente autenticato, ordinate dalla più recente alla più vecchia.",
     "tags": ["Transazioni"],
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+      }
+    ],
     "responses": {
       "200": {
         "description": "Lista transazioni recuperata con successo",
@@ -626,6 +837,16 @@
     "summary": "api/transazioni/spese-per-paese",
     "description": "Restituisce le spese totali sostenute dall’utente, suddivise per paese di destinazione. Utile per analizzare la distribuzione geografica delle uscite.",
     "tags": ["Transazioni"],
+       "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": { "type": "string", "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." }
+      }
+    ],
     "responses": {
       "200": {
         "description": "Spese per paese recuperate con successo",
@@ -658,6 +879,16 @@
     "summary": "api/transazioni/spese-recenti",
     "description": "Restituisce le ultime 10 transazioni completate dall’utente, mostrando categoria, importo, data e metodo di pagamento.",
     "tags": ["Transazioni"],
+     "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": { "type": "string", "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." }
+      }
+    ],
     "responses": {
       "200": {
         "description": "Transazioni recenti recuperate con successo",
@@ -695,7 +926,8 @@
   "get": {
        "summary": "api/transazioni/spese-per-categorie",
     "description": "Restituisce il totale delle spese raggruppate per categoria e mese, filtrando per un intervallo di date specificato tramite i parametri `from` e `to`.",
-    "tags": ["Transazioni"],
+    "tags": ["Transazioni"], 
+    "security": [{ "bearerAuth": [] }],
     "parameters": [
       {
         "name": "from",
@@ -710,6 +942,13 @@
         "description": "Data di fine (formato YYYY-MM-DD)",
         "required": true,
         "schema": { "type": "string", "example": "2024-07-01" }
+      },
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": { "type": "string", "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." }
       }
     ],
     "responses": {
@@ -748,7 +987,8 @@
      "summary": "api/transazioni/andamento-trimestrale",
     "description": "Restituisce, per ciascun mese dell’intervallo specificato, il totale di entrate, uscite e saldo. Utile per visualizzare l’andamento finanziario mensile.",
     "tags": ["Transazioni"],
-     "parameters": [
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
       {
         "name": "from",
         "in": "query",
@@ -762,6 +1002,13 @@
         "description": "Data di fine (formato YYYY-MM-DD)",
         "required": true,
         "schema": { "type": "string", "example": "2024-07-01" }
+      },
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": { "type": "string", "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." }
       }
     ],
     "responses": {
@@ -808,8 +1055,23 @@
 "/api/saldo": {
   "get": {
     "summary": "api/saldo",
-    "description": "Restituisce il saldo corrente calcolato su tutte le transazioni completate dell’utente autenticato.",
+    "description": "Restituisce il saldo corrente calcolato su tutte le transazioni completate dell’utente autenticato. Richiede autenticazione JWT tramite header Authorization.",
     "tags": ["Transazioni"],
+    "security": [
+      { "bearerAuth": [] }
+    ],
+    "parameters": [
+      {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token JWT per l'autenticazione (es: Bearer <token>)",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+      }
+    ],
     "responses": {
       "200": {
         "description": "Saldo recuperato con successo",
