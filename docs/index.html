@@ -23,7 +23,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "PW Bank",
-    "version": "2.7.0",
+    "version": "2.8.0",
     "description": "Documentazione completa delle API implementate"
   },
   "servers": [
@@ -195,7 +195,7 @@
     }
   }
 },
-    "/api/mutuo": {
+"/api/mutuo": {
   "get": {
     "summary": "Elenco rate mutuo",
     "description": "Recupera la situazione delle rate del mutuo per l'utente autenticato. Restituisce il numero e il totale delle rate pagate, in scadenza e da pagare.",
@@ -242,7 +242,7 @@
     }
   }
 },
-   "/api/prestiti": {
+"/api/prestiti": {
   "get": {
     "summary": "Elenco rate prestiti",
     "description": "Recupera la situazione delle rate dei prestiti per l'utente autenticato. Restituisce il numero e il totale delle rate pagate, in scadenza e da pagare.",
@@ -412,7 +412,7 @@
     }
   }
 },
-"/api/investimenti/chart": {
+"/api/investimenti/crypto": {
   "get": {
     "summary": "Storico prezzi asset (CoinGecko)",
     "parameters": [
@@ -528,7 +528,7 @@
     }
   }
 },
- "/api/transazioni": {
+"/api/transazioni": {
   "get": {
     "summary": "Lista completa delle transazioni",
     "description": "Restituisce la lista di tutte le transazioni registrate dall'utente autenticato.",
@@ -688,7 +688,7 @@
     }
   }
 },
-"/api/transazioni/andamento-trimestrale": {
+"/api/transazioni/andamento": {
   "get": {
     "summary": "Andamento mensile di entrate, uscite e saldo",
     "description": "Restituisce la somma di entrate, uscite e saldo per ogni mese nell'intervallo richiesto. Richiede parametri di query 'from' e 'to' (es. '2024-05-01').",
@@ -786,17 +786,27 @@
 
   },
   "components": {
-    "schemas": {
-      "ErrorResponse": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string"
-          }
+  "schemas": {
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
         }
       }
     }
+  },
+  "securitySchemes": {
+    "bearerAuth": {
+      "type": "http",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
+    }
   }
+},
+"security": [
+  { "bearerAuth": [] }
+]
 };
       Redoc.init(spec, {
         scrollYOffset: 50,
