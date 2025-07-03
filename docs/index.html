@@ -22,9 +22,9 @@
       const spec = {
   "openapi": "3.0.0",
   "info": {
-    "title": "API Fintech Dashboard",
-    "version": "1.0.0",
-    "description": "Documentazione completa delle API per la gestione finanziaria personale"
+    "title": "PW Bank",
+    "version": "2.5.0",
+    "description": "Documentazione completa delle API implementate"
   },
   "servers": [
     {
@@ -148,456 +148,548 @@
     }
   }
 },
-    "/api/mutuo/{id}": {
-      "post": {
-        "summary": "Dettaglio rata mutuo",
-        "responses": {
-          "200": {
-            "description": "Successo"
-          },
-          "400": {
-            "description": "Richiesta non valida",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Non autorizzato",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Risorsa non trovata",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Errore interno del server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
+   "/api/prestiti": {
+  "get": {
+    "summary": "Elenco rate prestiti",
+    "description": "Recupera la situazione delle rate dei prestiti per l'utente autenticato. Restituisce il numero e il totale delle rate pagate, in scadenza e da pagare.",
+    "responses": {
+      "200": {
+        "description": "Situazione prestiti recuperata con successo",
+        "content": {
+          "application/json": {
+            "example": {
+              "pagata": { "count": 5, "totale": 1250 },
+              "in_scadenza": { "count": 1, "totale": 230 },
+              "da_pagare": { "count": 7, "totale": 1610 }
             }
           }
         }
-      }
-    },
-    "/api/prestiti": {
-      "get": {
-        "summary": "Elenco rate prestiti",
-        "responses": {
-          "200": {
-            "description": "Successo"
-          },
-          "400": {
-            "description": "Richiesta non valida",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Non autorizzato",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Risorsa non trovata",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Errore interno del server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "example": { "message": "Token non valido o mancante" }
           }
         }
-      }
-    },
-    "/api/prestiti/{id}": {
-      "post": {
-        "summary": "Dettaglio rata prestito",
-        "responses": {
-          "200": {
-            "description": "Successo"
-          },
-          "400": {
-            "description": "Richiesta non valida",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Non autorizzato",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Risorsa non trovata",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Errore interno del server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+      },
+      "404": {
+        "description": "Nessuna rata prestito trovata per questo utente",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "example": { "message": "Nessuna rata prestito trovata per questo utente" }
           }
         }
-      }
-    },
-    "/api/investimenti": {
-      "get": {
-        "summary": "Elenco investimenti",
-        "responses": {
-          "200": {
-            "description": "Successo"
-          },
-          "400": {
-            "description": "Richiesta non valida",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Non autorizzato",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Risorsa non trovata",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Errore interno del server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/investimenti/acquista": {
-      "post": {
-        "summary": "Acquisto asset",
-        "responses": {
-          "200": {
-            "description": "Successo"
-          },
-          "400": {
-            "description": "Richiesta non valida",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Non autorizzato",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Risorsa non trovata",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Errore interno del server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/investimenti/vendi": {
-      "post": {
-        "summary": "Vendita asset",
-        "responses": {
-          "200": {
-            "description": "Successo"
-          },
-          "400": {
-            "description": "Richiesta non valida",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Non autorizzato",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Risorsa non trovata",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Errore interno del server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/news": {
-      "get": {
-        "summary": "Notizie economiche",
-        "responses": {
-          "200": {
-            "description": "Successo"
-          },
-          "400": {
-            "description": "Richiesta non valida",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Non autorizzato",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Risorsa non trovata",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Errore interno del server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/transazioni": {
-      "get": {
-        "summary": "Lista transazioni",
-        "responses": {
-          "200": {
-            "description": "Successo"
-          },
-          "400": {
-            "description": "Richiesta non valida",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Non autorizzato",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Risorsa non trovata",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Errore interno del server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/transazioni/aggiungi": {
-      "post": {
-        "summary": "Aggiungi transazione",
-        "responses": {
-          "200": {
-            "description": "Successo"
-          },
-          "400": {
-            "description": "Richiesta non valida",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Non autorizzato",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Risorsa non trovata",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Errore interno del server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+      },
+      "500": {
+        "description": "Errore interno del server",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "example": { "message": "Errore nel server" }
           }
         }
       }
     }
+  }
+},
+"/api/investimenti": {
+  "post": {
+    "summary": "Registra un'operazione di investimento (acquisto o vendita)",
+    "description": "Registra un acquisto o una vendita di asset. Specificare il tipo di operazione nel campo 'operazione' del body.",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "asset": { "type": "string", "example": "bitcoin" },
+              "operazione": { "type": "string", "example": "acquisto" },
+              "quantita": { "type": "number", "example": 0.1 },
+              "prezzo_unitario": { "type": "number", "example": 26000 }
+            },
+            "required": ["asset", "operazione", "quantita", "prezzo_unitario"]
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Operazione registrata con successo",
+        "content": {
+          "application/json": {
+            "example": {
+              "message": "Operazione registrata con successo",
+              "saldoAggiornato": 12450
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Dati mancanti o non validi",
+        "content": {
+          "application/json": {
+            "example": { "message": "Tutti i campi sono obbligatori" }
+          }
+        }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": {
+          "application/json": {
+            "example": { "message": "Token non valido o mancante" }
+          }
+        }
+      },
+      "500": {
+        "description": "Errore lato server",
+        "content": {
+          "application/json": {
+            "example": { "message": "Errore lato server" }
+          }
+        }
+      }
+    }
+  }
+},
+"/api/investimenti/composizione": {
+  "get": {
+    "summary": "Composizione del portafoglio investimenti",
+    "responses": {
+      "200": {
+        "description": "Composizione calcolata con successo",
+        "content": {
+          "application/json": {
+            "example": {
+              "x": "66",
+              "y": "34",
+              "labelX": "Bitcoin",
+              "labelY": "Altri asset"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": { "application/json": { "example": { "message": "Token non valido o mancante" } } }
+      },
+      "404": {
+        "description": "Nessun investimento trovato per questo utente",
+        "content": { "application/json": { "example": { "message": "Nessun investimento trovato per questo utente" } } }
+      },
+      "500": {
+        "description": "Errore lato server",
+        "content": { "application/json": { "example": { "message": "Errore lato server" } } }
+      }
+    }
+  }
+},
+"/api/investimenti/andamento": {
+  "get": {
+    "summary": "Andamento degli investimenti",
+    "responses": {
+      "200": {
+        "description": "Andamento calcolato con successo",
+        "content": {
+          "application/json": {
+            "example": {
+              "valoreAttuale": 15000,
+              "valorePrecedente": 12000,
+              "variazione": "25.00"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": { "application/json": { "example": { "message": "Token non valido o mancante" } } }
+      },
+      "404": {
+        "description": "Nessun investimento per i periodi richiesti",
+        "content": { "application/json": { "example": { "message": "Nessun investimento per i periodi richiesti" } } }
+      },
+      "500": {
+        "description": "Errore nel calcolo andamento investimenti",
+        "content": { "application/json": { "example": { "message": "Errore nel calcolo andamento investimenti." } } }
+      }
+    }
+  }
+},
+"/api/investimenti/chart": {
+  "get": {
+    "summary": "Storico prezzi asset (CoinGecko)",
+    "parameters": [
+      { "name": "asset", "in": "query", "required": false, "schema": { "type": "string" }, "example": "bitcoin" },
+      { "name": "days", "in": "query", "required": false, "schema": { "type": "string" }, "example": "90" },
+      { "name": "vs_currency", "in": "query", "required": false, "schema": { "type": "string" }, "example": "usd" }
+    ],
+    "responses": {
+      "200": {
+        "description": "Dati storico prezzi asset",
+        "content": {
+          "application/json": {
+            "example": {
+              "prices": [[1719729600000, 26000], [1719733200000, 26100]],
+              "market_caps": [[1719729600000, 510000000000]],
+              "total_volumes": [[1719729600000, 3100000000]]
+            }
+          }
+        }
+      },
+      "400": { "description": "Richiesta non valida", "content": { "application/json": { "example": { "error": "Richiesta non valida. Verifica i parametri 'asset', 'days' o 'vs_currency'." } } } },
+      "401": { "description": "Token non valido o mancante", "content": { "application/json": { "example": { "message": "Token non valido o mancante" } } } },
+      "403": { "description": "Accesso negato da CoinGecko", "content": { "application/json": { "example": { "error": "Accesso negato da CoinGecko. Verifica se l'endpoint richiede autorizzazione." } } } },
+      "404": { "description": "Asset non trovato", "content": { "application/json": { "example": { "error": "Asset 'bitcoin' non trovato su CoinGecko." } } } },
+      "429": { "description": "Troppe richieste", "content": { "application/json": { "example": { "error": "Hai superato il limite di richieste a CoinGecko. Riprova tra qualche istante." } } } },
+      "502": { "description": "Errore CoinGecko", "content": { "application/json": { "example": { "error": "Errore interno da CoinGecko. Servizio momentaneamente non disponibile." } } } },
+      "500": { "description": "Errore generico", "content": { "application/json": { "example": { "error": "Errore imprevisto durante il recupero dei dati: ..." } } } }
+    }
+  }
+},
+"/api/news": {
+  "get": {
+    "summary": "Notizie economiche dalle principali fonti crypto",
+    "parameters": [
+      {
+        "name": "asset",
+        "in": "query",
+        "description": "Asset di cui visualizzare le notizie (bitcoin, ethereum, solana)",
+        "required": false,
+        "schema": { "type": "string", "example": "bitcoin" }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Notizie recuperate con successo",
+        "content": {
+          "application/json": {
+            "example": [
+              {
+                "title": "ETF spot su Bitcoin approvati: cosa cambia?",
+                "link": "https://cryptopanic.com/news/12345",
+                "published_at": "2024-07-01T11:04:30Z",
+                "description": "I nuovi ETF potrebbero rivoluzionare il settore degli investimenti crypto..."
+              },
+              {
+                "title": "Solana supera Ethereum in volumi",
+                "link": "https://cryptopanic.com/news/12346",
+                "published_at": "2024-07-01T09:11:12Z",
+                "description": "L'impennata di Solana fa discutere analisti e investitori."
+              }
+            ]
+          }
+        }
+      },
+      "400": {
+        "description": "Richiesta non valida",
+        "content": {
+          "application/json": {
+            "example": { "error": "Richiesta non valida. Verifica i parametri della query." }
+          }
+        }
+      },
+      "401": {
+        "description": "Autenticazione fallita verso CryptoPanic",
+        "content": {
+          "application/json": {
+            "example": { "error": "Autenticazione fallita. Verifica il tuo auth_token di CryptoPanic." }
+          }
+        }
+      },
+      "403": {
+        "description": "Accesso non autorizzato a CryptoPanic",
+        "content": {
+          "application/json": {
+            "example": { "error": "Accesso non autorizzato a questo endpoint. Verifica il piano API di CryptoPanic." }
+          }
+        }
+      },
+      "429": {
+        "description": "Troppe richieste o quota mensile superata",
+        "content": {
+          "application/json": {
+            "example": { "error": "Hai superato il limite mensile di richieste previsto dal piano gratuito di CryptoPanic." }
+          }
+        }
+      },
+      "502": {
+        "description": "Dati non validi da CryptoPanic",
+        "content": {
+          "application/json": {
+            "example": { "error": "Dati non validi da CryptoPanic" }
+          }
+        }
+      },
+      "500": {
+        "description": "Errore interno durante il caricamento delle notizie",
+        "content": {
+          "application/json": {
+            "example": { "error": "Errore interno durante il caricamento delle notizie." }
+          }
+        }
+      }
+    }
+  }
+},
+ "/api/transazioni": {
+  "get": {
+    "summary": "Lista completa delle transazioni",
+    "description": "Restituisce la lista di tutte le transazioni registrate dall'utente autenticato.",
+    "responses": {
+      "200": {
+        "description": "Lista transazioni recuperata con successo",
+        "content": {
+          "application/json": {
+            "example": [
+              {
+                "id": 13,
+                "utente": 5,
+                "importo": 250,
+                "tipo": "Uscita",
+                "categoria": "Alimentari",
+                "data": "2024-07-01T09:11:12.000Z",
+                "indirizzo": "Via Roma 12, Torino",
+                "metodo": "Carta",
+                "stato": "Completato",
+                "paese": "IT"
+              }
+            ]
+          }
+        }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": { "application/json": { "example": { "message": "Token non valido o mancante" } } }
+      },
+      "404": {
+        "description": "Nessuna transazione trovata per questo utente",
+        "content": { "application/json": { "example": { "message": "Nessuna transazione trovata per questo utente" } } }
+      },
+      "500": {
+        "description": "Errore nel recupero delle transazioni",
+        "content": { "application/json": { "example": { "message": "Errore nel recupero delle transazioni" } } }
+      }
+    }
+  }
+},
+"/api/transazioni/spese-per-paese": {
+  "get": {
+    "summary": "Spese totali per paese",
+    "description": "Restituisce le spese totali raggruppate per paese dell'utente autenticato.",
+    "responses": {
+      "200": {
+        "description": "Spese per paese recuperate con successo",
+        "content": {
+          "application/json": {
+            "example": [
+              { "id": "IT", "value": 1430.50 },
+              { "id": "DE", "value": 250.00 }
+            ]
+          }
+        }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": { "application/json": { "example": { "message": "Token non valido o mancante" } } }
+      },
+      "404": {
+        "description": "Nessuna spesa trovata per paese per questo utente",
+        "content": { "application/json": { "example": { "message": "Nessuna spesa trovata per paese per questo utente" } } }
+      },
+      "500": {
+        "description": "Errore server",
+        "content": { "application/json": { "example": { "message": "Errore server" } } }
+      }
+    }
+  }
+},
+"/api/transazioni/spese-recenti": {
+  "get": {
+    "summary": "Ultime 10 transazioni",
+    "description": "Restituisce le ultime 10 transazioni dell'utente autenticato.",
+    "responses": {
+      "200": {
+        "description": "Transazioni recenti recuperate con successo",
+        "content": {
+          "application/json": {
+            "example": [
+              {
+                "categoria": "Utenze",
+                "indirizzo": "Via Garibaldi 45, Torino",
+                "data": "2024-07-02T13:20:00.000Z",
+                "importo": 80,
+                "stato": "Completato",
+                "metodo": "Bonifico"
+              }
+            ]
+          }
+        }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": { "application/json": { "example": { "message": "Token non valido o mancante" } } }
+      },
+      "404": {
+        "description": "Nessuna transazione recente trovata per questo utente",
+        "content": { "application/json": { "example": { "message": "Nessuna transazione recente trovata per questo utente" } } }
+      },
+      "500": {
+        "description": "Errore nel server",
+        "content": { "application/json": { "example": { "message": "Errore nel server" } } }
+      }
+    }
+  }
+},
+"/api/transazioni/spese-per-categorie": {
+  "get": {
+    "summary": "Spese per categoria e mese",
+    "description": "Restituisce la somma delle spese raggruppate per categoria e mese in un intervallo di date. Richiede parametri di query 'from' e 'to' (es. '2024-05-01').",
+    "parameters": [
+      {
+        "name": "from",
+        "in": "query",
+        "description": "Data di inizio (formato YYYY-MM-DD)",
+        "required": true,
+        "schema": { "type": "string", "example": "2024-06-01" }
+      },
+      {
+        "name": "to",
+        "in": "query",
+        "description": "Data di fine (formato YYYY-MM-DD)",
+        "required": true,
+        "schema": { "type": "string", "example": "2024-07-01" }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Spese per categoria recuperate con successo",
+        "content": {
+          "application/json": {
+            "example": [
+              { "mese": "2024-06", "categoria": "Alimentari", "totale": 320.00 },
+              { "mese": "2024-06", "categoria": "Affitto", "totale": 500.00 }
+            ]
+          }
+        }
+      },
+      "400": {
+        "description": "Parametri 'from' e 'to' obbligatori",
+        "content": { "application/json": { "example": { "message": "Parametri 'from' e 'to' obbligatori" } } }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": { "application/json": { "example": { "message": "Token non valido o mancante" } } }
+      },
+      "404": {
+        "description": "Nessuna spesa trovata per questo intervallo",
+        "content": { "application/json": { "example": { "message": "Nessuna spesa trovata per questo intervallo" } } }
+      },
+      "500": {
+        "description": "Errore nel recupero delle spese",
+        "content": { "application/json": { "example": { "message": "Errore nel recupero delle spese" } } }
+      }
+    }
+  }
+},
+"/api/transazioni/andamento-trimestrale": {
+  "get": {
+    "summary": "Andamento mensile di entrate, uscite e saldo",
+    "description": "Restituisce la somma di entrate, uscite e saldo per ogni mese nell'intervallo richiesto. Richiede parametri di query 'from' e 'to' (es. '2024-05-01').",
+    "parameters": [
+      {
+        "name": "from",
+        "in": "query",
+        "description": "Data di inizio (formato YYYY-MM-DD)",
+        "required": true,
+        "schema": { "type": "string", "example": "2024-04-01" }
+      },
+      {
+        "name": "to",
+        "in": "query",
+        "description": "Data di fine (formato YYYY-MM-DD)",
+        "required": true,
+        "schema": { "type": "string", "example": "2024-07-01" }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Andamenti mensili recuperati con successo",
+        "content": {
+          "application/json": {
+            "example": [
+              {
+                "mese": "2024-05",
+                "entrate": 2300,
+                "uscite": -1500,
+                "saldo": 800
+              },
+              {
+                "mese": "2024-06",
+                "entrate": 2500,
+                "uscite": -1200,
+                "saldo": 1300
+              }
+            ]
+          }
+        }
+      },
+      "400": {
+        "description": "Parametri 'from' e 'to' obbligatori",
+        "content": { "application/json": { "example": { "message": "Parametri 'from' e 'to' obbligatori" } } }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": { "application/json": { "example": { "message": "Token non valido o mancante" } } }
+      },
+      "404": {
+        "description": "Nessun andamento mensile trovato per questo intervallo",
+        "content": { "application/json": { "example": { "message": "Nessun andamento mensile trovato per questo intervallo" } } }
+      },
+      "500": {
+        "description": "Errore nel recupero degli andamenti mensili",
+        "content": { "application/json": { "example": { "message": "Errore nel recupero degli andamenti mensili" } } }
+      }
+    }
+  }
+},
+"/api/saldo": {
+  "get": {
+    "summary": "Saldo aggiornato dell'utente",
+    "description": "Restituisce il saldo totale calcolato a partire dalle transazioni dell'utente autenticato.",
+    "responses": {
+      "200": {
+        "description": "Saldo recuperato con successo",
+        "content": {
+          "application/json": {
+            "example": {
+              "saldo": 3425.50
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": {
+          "application/json": {
+            "example": { "message": "Token non valido o mancante" }
+          }
+        }
+      },
+      "500": {
+        "description": "Errore durante il calcolo del saldo",
+        "content": {
+          "application/json": {
+            "example": { "message": "Errore durante il calcolo del saldo" }
+          }
+        }
+      }
+    }
+  }
+}
+
   },
   "components": {
     "schemas": {
