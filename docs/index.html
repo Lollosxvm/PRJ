@@ -23,7 +23,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "PW Bank",
-    "version": "2.5.0",
+    "version": "2.7.0",
     "description": "Documentazione completa delle API implementate"
   },
   "servers": [
@@ -96,6 +96,100 @@
             "schema": { "$ref": "#/components/schemas/ErrorResponse" },
             "example": { "message": "Errore server" }
           }
+        }
+      }
+    }
+  }
+},
+"/api/utente/me": {
+  "get": {
+    "summary": "Recupera il profilo utente",
+    "description": "Restituisce le informazioni del profilo utente autenticato.",
+    "responses": {
+      "200": {
+        "description": "Profilo recuperato con successo",
+        "content": {
+          "application/json": {
+            "example": {
+              "nome": "Mario",
+              "cognome": "Rossi",
+              "email": "mario.rossi@email.it",
+              "telefono": "3491234567",
+              "indirizzo1": "Via Verdi 21",
+              "indirizzo2": "Scala B, Int. 5",
+              "citta": "Torino"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": {
+          "application/json": { "example": { "message": "Token non valido o mancante" } }
+        }
+      },
+      "404": {
+        "description": "Utente non trovato",
+        "content": {
+          "application/json": { "example": { "message": "Utente non trovato" } }
+        }
+      },
+      "500": {
+        "description": "Errore durante il recupero del profilo",
+        "content": {
+          "application/json": { "example": { "message": "Errore durante il recupero del profilo" } }
+        }
+      }
+    }
+  }
+},
+"/api/utente/update": {
+  "put": {
+    "summary": "Aggiorna il profilo utente",
+    "description": "Aggiorna i dati del profilo dell’utente autenticato. Alcuni campi sono obbligatori.",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "nome": { "type": "string", "example": "Mario" },
+              "cognome": { "type": "string", "example": "Rossi" },
+              "email": { "type": "string", "example": "mario.rossi@email.it" },
+              "telefono": { "type": "string", "example": "3491234567" },
+              "indirizzo1": { "type": "string", "example": "Via Verdi 21" },
+              "indirizzo2": { "type": "string", "example": "Scala B, Int. 5" },
+              "citta": { "type": "string", "example": "Torino" }
+            },
+            "required": ["nome", "cognome", "email"]
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Profilo aggiornato con successo",
+        "content": {
+          "application/json": { "example": { "message": "Profilo aggiornato con successo" } }
+        }
+      },
+      "400": {
+        "description": "Campi obbligatori mancanti",
+        "content": {
+          "application/json": { "example": { "message": "Campi obbligatori mancanti" } }
+        }
+      },
+      "401": {
+        "description": "Token non valido o mancante",
+        "content": {
+          "application/json": { "example": { "message": "Token non valido o mancante" } }
+        }
+      },
+      "500": {
+        "description": "Errore durante l'aggiornamento del profilo",
+        "content": {
+          "application/json": { "example": { "message": "Errore durante l'aggiornamento del profilo" } }
         }
       }
     }
